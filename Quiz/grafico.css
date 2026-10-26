@@ -1,0 +1,20 @@
+/* O container do card define o tamanho limite */
+.card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que a imagem respeite as bordas arredondadas do card */
+  }
+  
+  /* Regras de ouro para a imagem */
+  .card-tag {
+    width: 100%;        /* Ocupa toda a largura do card */
+    height: 200px;      /* Define uma altura fixa para padronizar seus cards */
+    object-fit: cover;  /* Corta e centraliza a imagem sem distorcer (efeito de fundo) */
+    display: block;     /* Remove pequenos espaços em branco abaixo da imagem */
+  }
+  
+  .card-conteudo {
+    padding: 16px;
+  }
+  

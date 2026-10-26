@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>CyberShield | Guia de Conscientização Digital</title>
+    <meta charset="UTF-8">
+    <style>
+     :root {
+            --bg-principal: #0b0f19;
+            --bg-card: #131a2c;
+            --bg-destaque: #1e2942;
+            --texto-claro: #f1f5f9;
+            --texto-mutado: #94a3b8;
+            --azul-neon: #38bdf8;
+            --azul-hover: #0ea5e9;
+            --borda: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-claro);
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho e Navegação */
+        header {
+            background-color: rgba(11, 15, 25, 0.9);
+            border-bottom: 1px solid var(--borda);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--azul-neon);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            color: var(--texto-mutado);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--azul-neon);
+        }
+
+        /* Seção Hero (Abertura) */
+        .hero {
+            padding: 100px 20px 8px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .hero h1 span {
+            color: var(--azul-neon);
+        }
+
+        .grafico {
+            padding: 100px 20px 8px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .grafico p {
+            color: var(--texto-mutado);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .hero p {
+            color: var(--texto-mutado);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Grade de Conteúdo */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .grid-topicos {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 500px;
+        }
+
+        .grid-topicos1 {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 500px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-topicos1 {
+                grid-template-columns: 1fr;
+            }
+        }    
+
+        @media (max-width: 600px) {
+            .grid-topicos {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2rem; }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s;
+            scroll-margin-top: 100px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-neon);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--azul-neon);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--texto-mutado);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Listas de Dicas */
+        .bloco-dicas {
+            background-color: var(--bg-destaque);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .bloco-dicas h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--azul-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bloco-dicas ul {
+            list-style: none;
+        }
+
+        .bloco-dicas li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+        }
+
+        .bloco-dicas li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--azul-neon);
+            font-weight: bold;
+        }
+
+        /* Estilização moderna para o botão */
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Efeito ao passar o mouse */
+        .btn-voltar:hover {
+            background-color: #2563eb;
+        }
+
+        /* Efeito ao clicar */
+        .btn-voltar:active {
+            transform: scale(0.98);
+        }
+
+        .btn-voltar {
+            position: fixed;       /* Fixa o elemento na tela (não sai do lugar ao rolar) */
+            top: 20px;             /* Distância de 20px do topo */
+            right: 20px;           /* Distância de 20px da direita */
+            z-index: 1000;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #070a12;
+            border-top: 1px solid var(--borda);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            color: var(--texto-mutado);
+            font-size: 0.9rem;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <a href="ciber2.html"><button class="btn-voltar" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Voltar
+    </button></a>
+
+
+    <section class="hero" id="introdução">
+        <h1>Gráfico do índice de vazamento de <span>cookies</span></h1>
+        <p>Em 2025, foram 2,2 milhões de ocorrências de golpes no Brasil, ou mais de 250 casos por hora. Se comparado a 2018, o índice cresceu em mais de 400%. Segundo pesquisa do Fórum Brasileiro de Segurança Pública (FBSP), 83% da população afirma temer ser vítima de fraudes online.</p>
+        
+    </section>
+    
+
+    <div style="text-align: center;">
+        <img src="grafico.jpg.png" alt="Imagem" width="600" height="300" style="border-radius: 18px;">
+      </div>
+<br>
+<section class="grafico">
+<a href="https://sinfrerj.com.br/conteudo/11666/fraudes-digitais-se-consolidam-como-maior-crime-patrimonial-do-pais-com-mais-de-250-golpes-por-hora"><p>Fonte: https://sinfrerj.com.br/</p></a>
+</section>
+<br>      
+<br>
+<br>    
+
+</body>

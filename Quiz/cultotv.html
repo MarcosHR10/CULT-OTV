@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamPlay - Galeria de Vídeos</title>
+    <style>
+        /* 🎨 PALETA DE CORES (Variáveis CSS) */
+        :root {
+            --azul-escuro: #0f172a;    /* Fundo principal da página */
+            --azul-card: #1e293b;      /* Fundo dos cards e menus */
+            --azul-destaque: #2563eb;  /* Azul para detalhes secundários */
+            --amarelo: #facc15;        /* Cor de destaque principal (Gols/Botões) */
+            --amarelo-hover: #eab308;  /* Tom de hover para o amarelo */
+            --branco: #ffffff;         /* Textos principais e títulos */
+            --cinza-claro: #cbd5e1;    /* Parágrafos e textos secundários */
+        }
+
+        /* Configurações Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--azul-escuro);
+            color: var(--branco);
+            min-height: 100vh;
+            display: flex;
+            flex-col: column;
+            flex-direction: column;
+        }
+
+        /* ⚓ HEADER (Barra Superior) */
+        header {
+            background-color: var(--azul-card);
+            border-b: 2px solid var(--amarelo); /* Linha amarela de assinatura */
+            border-bottom: 2px solid var(--amarelo);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--branco);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--amarelo);
+        }
+
+        .badge-live {
+            background-color: #ef4444;
+            color: var(--branco);
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 50px;
+            animation: piscar 1.5s infinite;
+        }
+
+        /* 📺 LAYOUT PRINCIPAL (Grid de Conteúdo) */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        /* Player em Destaque (Esquerda) */
+        .player-principal {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Mantém proporção perfeita do YouTube */
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(250, 252, 21, 0.1);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .player-info {
+            background-color: var(--azul-card);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 5px solid var(--amarelo); /* Detalhe amarelo no texto */
+        }
+
+        .player-info h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--branco);
+        }
+
+        .player-info p {
+            color: var(--cinza-claro);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 🗂️ GRID LATERAL DE CARDS (Direita) */
+        .playlist-lateral {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .playlist-titulo {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--amarelo);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* ESTRUTURA DO CARD */
+        .card-video {
+            background-color: var(--azul-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-video:hover {
+            transform: translateY(-4px);
+            border-color: var(--amarelo);
+            box-shadow: 0 8px 20px rgba(250, 204, 21, 0.1);
+        }
+
+        /* Miniatura do vídeo */
+        .card-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            position: relative;
+        }
+
+        .card-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Conteúdo do Card */
+        .card-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Título na Esquerda e Status/Placar na Direita usando FLEX */
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .card-titulo {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--branco);
+            line-height: 1.4;
+        }
+
+        /* Texto posicionado no canto direito do card */
+        .texto-direita {
+            color: var(--amarelo);
+            font-weight: 800;
+            font-size: 16px;
+            white-space: nowrap; /* Evita que o placar quebre linha */
+        }
+
+        .card-descricao {
+            font-size: 12px;
+            color: var(--cinza-claro);
+            line-height: 1.5;
+        }
+
+        .btn-assistir {
+            background-color: var(--amarelo);
+            color: var(--azul-escuro);
+            font-weight: bold;
+            font-size: 13px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .btn-assistir:hover {
+            background-color: var(--amarelo-hover);
+        }
+
+        /* Animações */
+        @keyframes piscar {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* 📱 RESPONSIVIDADE (Telas menores) */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr; /* Transforma em uma única coluna no celular */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Topo -->
+    <header>
+        <div class="logo">Cultão<span>TV</span></div>
+        <div class="badge-live">AO VIVO</div>
+
+            <nav class="nav-container">
+                <a href="#" class="logo">🛡️ CyberSegurança na Web</a>
+                <ul class="nav-menu">
+                    <li><a href="cultotv2.html">Teste sua Senha</a></li>
+                    <li><a href="cultotv2.html">Quiz</a></li>
+                    <li><a href="cultotv2.html">Introdução</a></li>
+                    <li><a href="cultotv2.html">Definição</a></li>
+                    <li><a href="cultotv2.html">Engenharia Social</a></li>
+                    <li><a href="cultotv2.html">Phishing</a></li>
+                    <li><a href="cultotv2.html">Senhas Fortes</a></li>
+                    <li><a href="cultotv2.html">Redes Wi-Fi</a></li>
+                </ul>
+            </nav>
+    </header>
+
+    <!-- Container do Conteúdo -->
+    <main class="container">
+        
+        <!-- Lado Esquerdo: Player Principal -->
+        <section class="player-principal">
+            <div class="video-container">
+                <!-- Substitua o ID '6v61YQ9pMhI' pelo ID do vídeo desejado -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/52CnBqaSLYw?si=8pN69NASiuHL4CAN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <div class="player-info">
+                <h1>Transmissão Principal: Interclasse</h1>
+                <p>Assista aos melhores confrontos ao vivo com qualidade digital. O painel monitora os lances cruciais da partida em tempo real utilizando os contrastes cromáticos de nossa interface adaptiva.</p>
+            </div>
+        </section>
+
+        <!-- Lado Direito: Cards de Vídeos Relacionados -->
+        <section class="playlist-lateral">
+            <div class="playlist-titulo">Próximos Jogos</div>
+
+            <!-- CARD 1 -->
+            <div class="card-video">
+                <div class="card-thumb">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/TDVlDUAIz5k?si=jHm5fJBwYYUNyttZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <div class="card-header-flex">
+                        <div class="card-titulo">Sorocaba vs Carlos Barbosa</div>
+                        <!-- Texto alinhado à direita dentro do card usando Flexbox -->
+                        <div class="texto-direita">3 x 2</div>
+                    </div>
+                    <p class="card-descricao">Melhores momentos do primeiro tempo da semifinal disputada sob alta intensidade.</p>
+                    <button class="btn-assistir">Trocar de Câmera</button>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="card-video">
+                <div class="card-thumb">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/SETK2maosQY?si=p3eLyOvEEygNEiRJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <div class="card-header-flex">
+                        <div class="card-titulo">Joinville vs Corinthians</div>
+                        <!-- Texto alinhado à direita dentro do card usando Flexbox -->
+                        <div class="texto-direita">0 x 0</div>
+                    </div>
+                    <p class="card-descricao">Aquecimento oficial das equipes direto do ginásio poliesportivo.</p>
+                    <button class="btn-assistir">Trocar de Câmera</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

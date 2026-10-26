@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Guia de Conscientização Digital</title>
+    <style>
+        :root {
+            --bg-principal: #0b0f19;
+            --bg-card: #131a2c;
+            --bg-destaque: #1e2942;
+            --texto-claro: #f1f5f9;
+            --texto-mutado: #94a3b8;
+            --azul-neon: #38bdf8;
+            --azul-hover: #0ea5e9;
+            --borda: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-claro);
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho e Navegação */
+        header {
+            background-color: rgba(11, 15, 25, 0.9);
+            border-bottom: 1px solid var(--borda);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--azul-neon);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            color: var(--texto-mutado);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--azul-neon);
+        }
+
+        /* Seção Hero (Abertura) */
+        .hero {
+            padding: 150px 20px 8px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .hero h1 span {
+            color: var(--azul-neon);
+        }
+
+        .hero p {
+            color: var(--texto-mutado);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Grade de Conteúdo */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .grid-topicos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-topicos {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2rem; }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s;
+            scroll-margin-top: 100px;
+        }
+
+        /* Estilização moderna para o botão */
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Efeito ao passar o mouse */
+        .btn-voltar:hover {
+            background-color: #2563eb;
+        }
+
+        /* Efeito ao clicar */
+        .btn-voltar:active {
+            transform: scale(0.98);
+        }
+
+        .btn-voltar {
+            position: relative;       /* Fixa o elemento na tela (não sai do lugar ao rolar) */
+            top: 20px;             /* Distância de 40px do topo */
+            left: 20px;           /* Distância de 20px da direita */
+            z-index: 1000;
+
+        }    
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-neon);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--azul-neon);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--texto-mutado);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Listas de Dicas */
+        .bloco-dicas {
+            background-color: var(--bg-destaque);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .bloco-dicas h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--azul-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bloco-dicas ul {
+            list-style: none;
+        }
+
+        .bloco-dicas li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+        }
+
+        .bloco-dicas li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--azul-neon);
+            font-weight: bold;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #070a12;
+            border-top: 1px solid var(--borda);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            color: var(--texto-mutado);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="ciber.html"><button class="btn-voltar" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Voltar
+    </button></a>
+
+    <!-- Navegação -->
+
+
+    <!-- Introdução -->
+    <section class="hero">
+        <h1>Sua segurança digital começa com a <span>informação</span></h1>
+        <p>A maior parte dos incidentes de segurança cibernética acontece por falta de atenção a detalhes simples. Entenda as principais ameaças do ambiente digital e aprenda a se proteger de forma prática.</p>
+    </section>
+
+    <!-- Seções de Conteúdo -->
+    <main class="container">
+        <div class="grid-topicos">
+
+            <!-- Engenharia Social -->
+            <article class="card" id="engenharia">
+                <span class="card-tag">Manipulação Humana</span>
+                <h2>Engenharia Social</h2>
+                <p>Engenharia social é uma técnica de manipulação psicológica utilizada por criminosos para enganar pessoas, fazendo com que elas forneçam informações confidenciais, realizem depósitos financeiros ou permitam o acesso a sistemas restritos. Em vez de focar em falhas tecnológicas de hardwares ou softwares, essa prática explora a vulnerabilidade do fator humano, sendo frequentemente descrita como a "arte de hackear mentes".</p>
+                
+                <div class="bloco-dicas">
+                    <h3>🧠 Gatilhos Emocionais Utilizados</h3>
+                    <ul>
+                        <li><strong>Urgência:</strong> Criar prazos artificiais para que a vítima aja sem pensar (ex: "Sua conta será bloqueada em 2 horas").</li>
+                        <li><strong>Autoridade:</strong> Passar-se por figuras de poder, como diretores de empresas, policiais ou técnicos de suporte.</li>
+                        <li><strong>Confiança:</strong> Construir uma falsa sensação de intimidade ou utilizar a identidade clonada de conhecidos e familiares.</li>
+                        <li><strong>Curiosidade ou Ganância:</strong> Prometer prêmios falsos, vagas de emprego imperdíveis ou vazamento de fofocas.</li>
+                    </ul>
+                </div>
+
+            </article>
+
+            <!-- Phishing -->
+            <article class="card" id="phishing">
+                <span class="card-tag">Técnicas</span>
+                <h2>🛡️ Principais Técnicas e Tipos de Ataques</h2>
+                <p>Os golpes podem ocorrer por meios digitais, telefônicos ou até mesmo presenciais:</p>
+            
+                <div class="bloco-dicas">
+                    <h3>Sinais de alerta:</h3>
+                    <ul>
+                        <li><strong>Phishing:</strong> Mensagens em massa com links falsos que imitam instituições legítimas para roubar dados.</li>
+                        <li><strong>Vishing:</strong> Golpistas ligam fingindo ser do suporte do banco ou operadora para extrair senhas.</li>
+                        <li><strong>Smishing:</strong> Mensagens de texto com links maliciosos ou alertas urgentes de compras falsas.</li>
+                        <li><strong>Baiting (Isca):</strong> Deixar um dispositivo infectado (como um pendrive) exposto para que a vítima o conecte à rede.</li>
+                        <li><strong>Pretexting:</strong> Criação de uma história falsa elaborada para convencer o alvo a confirmar dados cadastrais.</li>
+                    </ul>
+                </div>
+            </article>
+            <br>
+            <br>
+            <br>
