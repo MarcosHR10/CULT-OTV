@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamPlay Futsal - Inteligente</title>
+    <title>StreamPlay - Galeria de Vídeos</title>
     <style>
         /* 🎨 PALETA DE CORES (Variáveis CSS) */
         :root {
-            --azul-escuro: #0f172a;    /* Fundo principal */
-            --azul-card: #1e293b;      /* Fundo dos cards/menus */
-            --azul-input: #334155;     /* Fundo da barra de pesquisa */
-            --amarelo: #facc15;        /* Destaques, botões e placar */
-            --amarelo-hover: #eab308;  /* Hover do amarelo */
-            --branco: #ffffff;         /* Textos principais */
-            --cinza-claro: #cbd5e1;    /* Descrições e textos secundários */
+            --azul-escuro: #0f172a;    /* Fundo principal da página */
+            --azul-card: #1e293b;      /* Fundo dos cards e menus */
+            --azul-destaque: #2563eb;  /* Azul para detalhes secundários */
+            --amarelo: #facc15;        /* Cor de destaque principal (Gols/Botões) */
+            --amarelo-hover: #eab308;  /* Tom de hover para o amarelo */
+            --branco: #ffffff;         /* Textos principais e títulos */
+            --cinza-claro: #cbd5e1;    /* Parágrafos e textos secundários */
         }
 
         /* Configurações Gerais */
@@ -29,22 +29,39 @@
             color: var(--branco);
             min-height: 100vh;
             display: flex;
+            flex-col: column;
             flex-direction: column;
         }
 
-        /* ⚓ HEADER + BARRA DE PESQUISA */
+        header {
+            background-color: rgba(11, 15, 25, 0.9);
+            border-bottom: 1px solid var(--borda);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        /* ⚓ HEADER (Barra Superior) */
         header {
             background-color: var(--azul-card);
+            border-b: 2px solid var(--amarelo); /* Linha amarela de assinatura */
             border-bottom: 2px solid var(--amarelo);
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            gap: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .logo {
@@ -52,35 +69,10 @@
             font-weight: 900;
             color: var(--branco);
             letter-spacing: 1px;
-            white-space: nowrap;
         }
 
         .logo span {
             color: var(--amarelo);
-        }
-
-        /* Campo de Busca Centralizado */
-        .busca-container {
-            flex-all: 1;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-        }
-
-        .busca-input {
-            width: 100%;
-            background-color: var(--azul-input);
-            border: 1px solid #475569;
-            padding: 10px 15px;
-            border-radius: 8px;
-            color: var(--branco);
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .busca-input:focus {
-            border-color: var(--amarelo);
         }
 
         .badge-live {
@@ -93,11 +85,11 @@
             animation: piscar 1.5s infinite;
         }
 
-        /* 📺 LAYOUT PRINCIPAL (Grid) */
+        /* 📺 LAYOUT PRINCIPAL (Grid de Conteúdo) */
         .container {
             max-width: 1400px;
             width: 100%;
-            margin: 25px auto;
+            margin: 30px auto;
             padding: 0 20px;
             display: grid;
             grid-template-columns: 3fr 1fr;
@@ -113,12 +105,12 @@
 
         .video-container {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 16 / 9; /* Mantém proporção perfeita do YouTube */
             background-color: #000;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(250, 252, 21, 0.05);
+            border: 1px solid rgba(250, 252, 21, 0.1);
         }
 
         .video-container iframe {
@@ -127,30 +119,17 @@
             border: none;
         }
 
-        /* Banner de Alerta Visual de Gol */
-        .banner-gol {
-            background-color: var(--amarelo);
-            color: var(--azul-escuro);
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 900;
-            text-align: center;
-            font-size: 18px;
-            display: none; /* Ativado via JS */
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);
-        }
-
         .player-info {
             background-color: var(--azul-card);
             padding: 20px;
             border-radius: 16px;
-            border-left: 5px solid var(--amarelo);
+            border-left: 5px solid var(--amarelo); /* Detalhe amarelo no texto */
         }
 
         .player-info h1 {
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 8px;
+            color: var(--branco);
         }
 
         .player-info p {
@@ -159,7 +138,7 @@
             line-height: 1.6;
         }
 
-        /* 🗂️ PLAYLIST / CARDS (Direita) */
+        /* 🗂️ GRID LATERAL DE CARDS (Direita) */
         .playlist-lateral {
             display: flex;
             flex-direction: column;
@@ -167,13 +146,15 @@
         }
 
         .playlist-titulo {
-            font-size: 13px;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--amarelo);
             font-weight: bold;
+            margin-bottom: 5px;
         }
 
+        /* ESTRUTURA DO CARD */
         .card-video {
             background-color: var(--azul-card);
             border-radius: 12px;
@@ -184,19 +165,18 @@
             flex-direction: column;
         }
 
-        .card-video.escondido {
-            display: none; /* Usado no filtro de busca */
-        }
-
         .card-video:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             border-color: var(--amarelo);
+            box-shadow: 0 8px 20px rgba(250, 204, 21, 0.1);
         }
 
+        /* Miniatura do vídeo */
         .card-thumb {
             width: 100%;
             aspect-ratio: 16 / 9;
             background-color: #000;
+            position: relative;
         }
 
         .card-thumb iframe {
@@ -205,6 +185,7 @@
             border: none;
         }
 
+        /* Conteúdo do Card */
         .card-body {
             padding: 15px;
             display: flex;
@@ -212,6 +193,7 @@
             gap: 8px;
         }
 
+        /* Título na Esquerda e Status/Placar na Direita usando FLEX */
         .card-header-flex {
             display: flex;
             justify-content: space-between;
@@ -223,25 +205,21 @@
             font-size: 15px;
             font-weight: bold;
             color: var(--branco);
+            line-height: 1.4;
         }
 
-        /* Texto/Placar fixado do lado direito do card */
+        /* Texto posicionado no canto direito do card */
         .texto-direita {
             color: var(--amarelo);
-            font-weight: 900;
-            font-size: 18px;
-            white-space: nowrap;
-            background-color: var(--azul-escuro);
-            padding: 2px 8px;
-            border-radius: 6px;
-            transition: all 0.3s;
+            font-weight: 800;
+            font-size: 16px;
+            white-space: nowrap; /* Evita que o placar quebre linha */
         }
 
-        /* Animação disparada quando acontece um gol */
-        .gol-animado {
-            transform: scale(1.15);
-            background-color: var(--amarelo);
-            color: var(--azul-escuro);
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
         }
 
         .card-descricao {
@@ -257,71 +235,127 @@
             font-size: 13px;
             padding: 8px 12px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s ease;
             text-align: center;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--azul-neon);
+        }
+
+        .nav-menu a {
+            color: var(--texto-mutado);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
         }
 
         .btn-assistir:hover {
             background-color: var(--amarelo-hover);
         }
 
+        /* Animações */
         @keyframes piscar {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
 
+        /* 📱 RESPONSIVIDADE (Telas menores) */
         @media (max-width: 1024px) {
-            .container { grid-template-columns: 1fr; }
-            header { flex-direction: column; gap: 15px; }
-            .busca-container { max-width: 100%; }
+            .container {
+                grid-template-columns: 1fr; /* Transforma em uma única coluna no celular */
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Topo Integrado -->
+    <!-- Header / Topo -->
     <header>
-        <div class="logo">STREAM<span>PLAY</span></div>
-        
-        <!-- 🔍 FILTRO DE BUSCA (Requisito 1) -->
-        <div class="busca-container">
-            <input type="text" id="campoBusca" class="busca-input" placeholder="Pesquisar partidas ou times..." onkeyup="filtrarVideos()">
-        </div>
-        
+        <div class="logo">Cultão<span>TV</span></div>
         <div class="badge-live">AO VIVO</div>
-    </header>
 
-    <!-- Estrutura Principal -->
+        <nav class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="cultotv2.html">Vôlei</a></li>
+                <li><a href="cultotv2.html">Handebol M</a></li>
+                <li><a href="cultotv2.html">Futsal M</a></li>
+                <li><a href="cultotv2.html">Basquete</a></li>
+                <li><a href="cultotv2.html">Handebol F</a></li>
+                <li><a href="cultotv2.html">Futsal F</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- Container do Conteúdo -->
     <main class="container">
         
-        <!-- Esquerda: Painel de Transmissão Ativa -->
+        <!-- Lado Esquerdo: Player Principal -->
         <section class="player-principal">
-            <!-- Alerta visual de Gol -->
-            <div id="alertagol" class="banner-gol">⚽ GOOOOL DA PARTIDA! ⚽</div>
-
             <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/52CnBqaSLYw?si=8pN69NASiuHL4CAN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>            </div>
+                <!-- Substitua o ID '6v61YQ9pMhI' pelo ID do vídeo desejado -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/kEcEGXtZYQk?si=4SKaifVUaakqER-2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>            </div>
             
             <div class="player-info">
-                <h1 id="tituloPrincipal">Transmissão Principal: Liga Nacional de Futsal</h1>
-                <p>Assista aos confrontos em tempo real. O sistema analisa os marcadores e altera os placares do lado direito de forma proporcional e automática assim que as redes balançam.</p>
+                <h1>Transmissão Principal: Interclasse</h1>
+                <p>Assista aos melhores confrontos ao vivo com qualidade digital. O painel monitora os lances cruciais da partida em tempo real utilizando os contrastes cromáticos de nossa interface adaptiva.</p>
             </div>
         </section>
 
-        <!-- Direita: Lista de Jogos com Placar na Direita -->
-        <section class="playlist-lateral" id="listaPartidas">
-            <div class="playlist-titulo">Painel de Jogos</div>
+        <!-- Lado Direito: Cards de Vídeos Relacionados -->
+        <section class="playlist-lateral">
+            <div class="playlist-titulo">Próximos Jogos</div>
 
-            <!-- JOGO 1 -->
-            <div class="card-video" data-titulo="sorocaba carlos barbosa futsal">
+            <!-- CARD 1 -->
+            <div class="card-video">
                 <div class="card-thumb">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/52CnBqaSLYw?si=8pN69NASiuHL4CAN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                </div>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZbKzvZ1CxJQ?si=qVriL3HVXx0zuwCG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                </div>
                 <div class="card-body">
                     <div class="card-header-flex">
                         <div class="card-titulo">Sorocaba vs Carlos Barbosa</div>
-                        <!-- Texto na Direita com ID para controle de gols -->
-                        <div class="texto-direita" id="placar-jogo1">2 x 1</div>
+                        <!-- Texto alinhado à direita dentro do card usando Flexbox -->
+                        <div class="texto-direita">3 x 2</div>
                     </div>
-                    <p class="card-descricao">Semifinal da taça sob altíssima intensidade tática.</p>
+                    <p class="card-descricao">Melhores momentos do primeiro tempo da semifinal disputada sob alta intensidade.</p>
+                    <button class="btn-assistir">Trocar de Câmera</button>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="card-video">
+                <div class="card-thumb">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bGm1S2yQAxg?si=q9vZKdxtQCJ0EP5T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                </div>
+                <div class="card-body">
+                    <div class="card-header-flex">
+                        <div class="card-titulo">Joinville vs Corinthians</div>
+                        <!-- Texto alinhado à direita dentro do card usando Flexbox -->
+                        <div class="texto-direita">0 x 0</div>
+                    </div>
+                    <p class="card-descricao">Aquecimento oficial das equipes direto do ginásio poliesportivo.</p>
+                    <button class="btn-assistir">Trocar de Câmera</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

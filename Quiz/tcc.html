@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Guia de Conscientização Digital</title>
+    <style>
+        :root {
+            --bg-principal: #0b0f19;
+            --bg-card: #131a2c;
+            --bg-destaque: #1e2942;
+            --texto-claro: #f1f5f9;
+            --texto-mutado: #94a3b8;
+            --azul-neon: #38bdf8;
+            --azul-hover: #0ea5e9;
+            --borda: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-claro);
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho e Navegação */
+        header {
+            background-color: rgba(11, 15, 25, 0.9);
+            border-bottom: 1px solid var(--borda);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--azul-neon);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            color: var(--texto-mutado);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--azul-neon);
+        }
+
+        /* Seção Hero (Abertura) */
+        .hero {
+            padding: 150px 20px 8px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .hero h1 span {
+            color: var(--azul-neon);
+        }
+
+        .hero p {
+            color: var(--texto-mutado);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Grade de Conteúdo */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .grid-topicos {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 500px;
+        }
+
+        .grid-topicos1 {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 800px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-topicos1 {
+                grid-template-columns: 1fr;
+            }
+        }    
+
+        @media (max-width: 600px) {
+            .grid-topicos {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2rem; }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s;
+            scroll-margin-top: 100px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-neon);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--azul-neon);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--texto-mutado);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Listas de Dicas */
+        .bloco-dicas {
+            background-color: var(--bg-destaque);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .bloco-dicas h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--azul-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bloco-dicas ul {
+            list-style: none;
+        }
+
+        .bloco-dicas li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+        }
+
+        /* Estilização moderna para o botão */
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Efeito ao passar o mouse */
+        .btn-voltar:hover {
+            background-color: #2563eb;
+        }
+
+        /* Efeito ao clicar */
+        .btn-voltar:active {
+            transform: scale(0.98);
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .bloco-dicas li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--azul-neon);
+            font-weight: bold;
+
+        iframe {
+            border-radius: 5px;
+        }
+
+        }
+
+        .btn-voltar {
+            position: fixed;       /* Fixa o elemento na tela (não sai do lugar ao rolar) */
+            top: 90px;             /* Distância de 20px do topo */
+            right: 20px;           /* Distância de 20px da direita */
+            z-index: 1000;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #070a12;
+            border-top: 1px solid var(--borda);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            color: var(--texto-mutado);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo">🚬Alerta no Ar</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Teste sua Senha</a></li>
+                <li><a href="site.html">Quiz</a></li>
+                <li><a href="#introdução">Introdução</a></li>
+                <li><a href="#definição">Definição</a></li>
+                <li><a href="#engenharia">Engenharia Social</a></li>
+                <li><a href="#phishing">Phishing</a></li>
+                <li><a href="#senhas">Senhas Fortes</a></li>
+                <li><a href="#wifi">Redes Wi-Fi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <a href="grafico.html"><button class="btn-voltar" onclick="history.back()">
+        Ver Kanban
+    </button></a>
+
+    <!-- Introdução -->
+    <section class="hero" id="introdução">
+        <h1>Detector de fumaça <span>fumaça</span></h1>
+          </section>
+
+
+    <!-- Seções de Conteúdo -->
+    <main class="container">
+
+        <div class="grid-topicos1">
+
+            <!-- Engenharia Social -->
+            <article class="card" id="definição">
+                <center><h2>Visão Geral</h2></center>
+                <p>O projeto propõe o desenvolvimento de um protótipo de detector de cigarros eletrônicos (vape) utilizando a tecnologia Arduino para combater o uso crescente desses dispositivos em ambientes escolares, como banheiros.
+                O avanço do vaping entre jovens é um problema grave de saúde pública, associado à dependência de nicotina, lesões pulmonares agudas (EVALI) e riscos ao desenvolvimento cerebral e cardiovascular. A fiscalização é dificultada pelo formato discreto dos aparelhos.</p>
+                
+            </article>
+     <br>
+     <br>
+     <br>
+           
+
+            <!-- Phishing -->
+            <article class="card" id="phishing">
+                <h2>O Problema</h2>
+                <p>O consumo de cigarros eletrônicos entre jovens causa sérios prejuízos à saúde cardiovascular e respiratória, além de dependência química, conforme aponta um estudo de 2021 do Instituto Nacional do Câncer (Inca). Diante desse cenário preocupante, administradores escolares, como o diretor Glauber Maldonado da E.E. Culto à Ciência, enfrentam grandes dificuldades para fiscalizar o uso desses dispositivos devido aos seus formatos variados e discretos e à ausência de fumaça densa, o que facilita o uso escondido em locais como banheiros. Como alternativa tecnológica e ética para mitigar esse problema sem infringir os direitos humanos, propõe-se a instalação de um detector de vape camuflado no teto dos ambientes. Esse dispositivo operará de forma totalmente silenciosa e sem cores chamativas, notificando em tempo real apenas a equipe gestora para que as providências legais sejam tomadas. Por fim, essa medida funciona como uma importante ação preventiva e urgente que visa desestimular o uso dos cigarros eletrônicos, garantindo a preservação da saúde coletiva, o bem-estar e a segurança pública dentro das instituições.</p>
+    
+            </article>
+            <br>
+            <br>
+            <br>
+
+            <!-- Senhas Fortes -->
+            <article class="card" id="senhas">
+                <span class="card-tag">Autenticação</span>
+                <h2>Metodologia</h2>
+                <p>Este projeto descreve um detector de fumaça automatizado para escolas, desenvolvido com hardware e software programado em C++ no ambiente Arduino. O sistema monitora o ambiente pelo pino analógico A5 e controla um LED vermelho (pino 12), um LED verde (pino 11) e um buzzer (pino 10). No ciclo de execução, o microcontrolador lê continuamente os dados do sensor (escala de 0 a 1023) e os transmite ao Serial Monitor. Se os valores ultrapassarem o limite crítico de 800 unidades, indicando a presença de aerossóis, o LED vermelho e o alarme sonoro são ativados imediatamente; caso contrário, o circuito permanece em normalidade com o LED verde aceso. Para validação prática, o dispositivo foi instalado em uma maquete que simula a dispersão do vapor de cigarros eletrônicos em banheiros escolares, funcionando como um fiscalizador automático para apoiar a intervenção rápida da gestão pedagógica.</p>
+                <div class="bloco-dicas">
+                    <h3>Arquitetura do Hardware e Coleta de Dados</h3>
+                    <ul>
+                        <li>Evite acessar contas bancárias ou realizar compras enquanto estiver nessas redes.</li>
+                        <li> Utilize uma VPN confiável para criptografar todo o tráfego do seu celular ou notebook.</li>
+                        <li> Desative a conexão automática de redes Wi-Fi conhecidas nas configurações do aparelho.</li>
+                    </ul>
+                </div>
+                <div class="bloco-dicas">
+                    <h3>Montaagem Física e Conexões do Circuito</h3>
+                    <p>O sistema utiliza o sensor MQ-2 na porta A0 para coletar dados ambientais, aplicando um filtro de média móvel (10 leituras consecutivas a cada 5 ms) para reduzir ruídos. A interface de alerta conta com LEDs (verde, amarelo e vermelho) e um buzzer com frequências variáveis baseadas no nível de risco. Para a conectividade, o protótipo utiliza um módulo Bluetooth HC-06 configurado via emulação de serial por software.
+                    </p>
+                </div>
+                <div class="bloco-dicas">
+                    <h3>Análise e Processamento de Dados</h3>
+                    <ul>
+                        <li>Evite acessar contas bancárias ou realizar compras enquanto estiver nessas redes.</li>
+                        <li> Utilize uma VPN confiável para criptografar todo o tráfego do seu celular ou notebook.</li>
+                        <li> Desative a conexão automática de redes Wi-Fi conhecidas nas configurações do aparelho.</li>
+                    </ul>
+                </div>
+
+            </article>
+            <br>
+            <br>
+            <br>
+
+            <!-- Wi-Fi Público -->
+            <article class="card" id="wifi">
+                <span class="card-tag">Redes de Risco</span>
+                <h2>Riscos em Wi-Fi Aberto</h2>
+                <p>Acessar redes Wi-Fi públicas de cafeterias, aeroportos ou praças sem senha traz grandes perigos. Como os dados trafegam pelo ar de forma aberta, criminosos conectados à mesma rede podem interceptar sua navegação. Ataques do tipo Man-in-the-Middle (Homem no Meio) permitem que o invasor fique entre o seu dispositivo e a internet, lendo o tráfego de sites não criptografados ou redirecionando você para servidores maliciosos.</p>
+                <div class="bloco-dicas">
+                    <h3>Boas práticas:</h3>
+                    <ul>
+                        <li>Evite acessar contas bancárias ou realizar compras enquanto estiver nessas redes.</li>
+                        <li> Utilize uma VPN confiável para criptografar todo o tráfego do seu celular ou notebook.</li>
+                        <li> Desative a conexão automática de redes Wi-Fi conhecidas nas configurações do aparelho.</li>
+                    </ul>
+                </div>
+                <br>
+                <br>

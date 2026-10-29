@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Quadro Kanban</title>
+    <style>
+        :root {
+            --bg-body: #f4f5f7;
+            --bg-column: #ebecf0;
+            --bg-card: #ffffff;
+            --text-main: #172b4d;
+            --text-muted: #5e6c84;
+            --primary: #0052cc;
+            --primary-hover: #0065ff;
+            --danger: #de350b;
+            --border-radius: 8px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            padding: 2rem;
+            align-items: flex-start;
+            flex-grow: 1;
+        }
+
+        .column {
+            background-color: var(--bg-column);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+        }
+
+        .column-header {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-count {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-height: 100px;
+            overflow-y: auto;
+            padding-bottom: 1rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+            cursor: grab;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .card:active {
+            cursor: grabbing;
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+            transform: scale(0.98);
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            word-break: break-word;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .btn-delete:hover {
+            color: var(--danger);
+            text-decoration: underline;
+        }
+
+        .btn-add {
+            background-color: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background-color: rgba(0,0,0,0.05);
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Painel de Projetos</h1>
+    </header>
+
+    <main class="board">
+        <!-- Coluna: A Fazer -->
+        <div class="column" data-status="todo">
+            <div class="column-header">
+                <span>A Fazer</span>
+                <span class="card-count" id="count-todo">0</span>
+            </div>
+            <div class="cards-list" ondragover="allowDrop(event)" ondrop="drop(event, 'todo')"></div>
+            <button class="btn-add" onclick="addCard('todo')">+ Adicionar cartão</button>
+        </div>
+
+        <!-- Coluna: Em Andamento -->
+        <div class="column" data-status="doing">
+            <div class="column-header">
+                <span>Em Andamento</span>
+                <span class="card-count" id="count-doing">0</span>
+            </div>
+            <div class="cards-list" ondragover="allowDrop(event)" ondrop="drop(event, 'doing')"></div>
+            <button class="btn-add" onclick="addCard('doing')">+ Adicionar cartão</button>
+        </div>
+
+        <!-- Coluna: Concluído -->
+        <div class="column" data-status="done">
+            <div class="column-header">
+                <span>Concluído</span>
+                <span class="card-count" id="count-done">0</span>
+            </div>
+            <div class="cards-list" ondragover="allowDrop(event)" ondrop="drop(event, 'done')"></div>
+            <button class="btn-add" onclick="addCard('done')">+ Adicionar cartão</button>
+        </div>
+    </main>
+
+    <script>
+        // Estrutura de dados inicial puxando do LocalStorage (ou vazia se for o primeiro acesso)
+        let tasks = JSON.parse(localStorage.getItem('kanban-tasks')) || [
+            { id: '1', text: 'Criar layout do novo projeto', status: 'todo' },
+            { id: '2', text: 'Ajustar validação do formulário', status: 'doing' },
+            { id: '3', text: 'Configurar servidor inicial', status: 'done' }
+        ];
+
+        // Inicializa o quadro carregando as tarefas
+        document.addEventListener('DOMContentLoaded', renderBoard);
+
+        function saveToStorage() {
+            localStorage.setItem('kanban-tasks', JSON.stringify(tasks));
+        }
+
+        function renderBoard() {
+            // Limpa as listas antes de renderizar
+            document.querySelectorAll('.cards-list').forEach(list => list.innerHTML = '');
+
+            // Contadores zerados
+            const counts = { todo: 0, doing: 0, done: 0 };
+
+            tasks.forEach(task => {
+                counts[task.status]++;
+                
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.setAttribute('draggable', 'true');
+                card.setAttribute('id', task.id);
+                card.ondragstart = drag;
+                card.ondragend = dragEnd;
+
+                card.innerHTML = `
+                    <div class="card-text">${task.text}</div>
+                    <div class="card-actions">
+                        <button class="btn-delete" onclick="deleteCard('${task.id}')">Excluir</button>
+                    </div>
+                `;
+
+                const columnList = document.querySelector(`[data-status="${task.status}"] .cards-list`);
+                if (columnList) columnList.appendChild(card);
+            });
+
+            // Atualiza os números nos cabeçalhos das colunas
+            document.getElementById('count-todo').innerText = counts.todo;
+            document.getElementById('count-doing').innerText = counts.doing;
+            document.getElementById('count-done').innerText = counts.done;
+        }
+
+        // Adicionar nova tarefa
+        function addCard(status) {
+            const text = prompt("Digite a descrição da tarefa:");
+            if (!text || text.trim() === "") return;
+
+            const newTask = {
+                id: 'task-' + Date.now(),
+                text: text.trim(),
+                status: status
+            };
+
+            tasks.push(newTask);
+            saveToStorage();
+            renderBoard();
+        }
+
+        // Excluir tarefa
+        function deleteCard(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            saveToStorage();
+            renderBoard();
+        }
+
+        // Lógica de Arrastar e Soltar (Drag and Drop)
+        function drag(event) {
+            event.dataTransfer.setData("text/plain", event.target.id);
+            setTimeout(() => event.target.classList.add('dragging'), 0);
+        }
+
+        function dragEnd(event) {
+            event.target.classList.remove('dragging');
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event, newStatus) {
+            event.preventDefault();
+            const taskId = event.dataTransfer.getData("text/plain");
+            
+            // Atualiza o status da tarefa no array de dados
+            tasks = tasks.map(task => {
+                if (task.id === taskId) {
+                    task.status = newStatus;
+                }
+                return task;
+            });
+
+            saveToStorage();
+            renderBoard();
+        }
+    </script>
+</body>
+</html>

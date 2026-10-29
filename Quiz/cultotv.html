@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="stylesheet" href="cultotv.js">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamPlay - Galeria de Vídeos</title>
@@ -29,18 +30,37 @@
             color: var(--branco);
             min-height: 100vh;
             display: flex;
-            flex-col: column;
+            flex: column;
             flex-direction: column;
+        }
+
+        header {
+            background-color: rgba(11, 15, 25, 0.9);
+            border-bottom: 1px solid var(--borda);
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
         }
 
         /* ⚓ HEADER (Barra Superior) */
         header {
             background-color: var(--azul-card);
-            border-b: 2px solid var(--amarelo); /* Linha amarela de assinatura */
+            border: 2px solid var(--amarelo); /* Linha amarela de assinatura */
             border-bottom: 2px solid var(--amarelo);
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
+            border-radius: 8px;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
@@ -197,6 +217,12 @@
             white-space: nowrap; /* Evita que o placar quebre linha */
         }
 
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
         .card-descricao {
             font-size: 12px;
             color: var(--cinza-claro);
@@ -218,6 +244,48 @@
             margin-top: 5px;
         }
 
+        .nav-menu a:hover {
+            color: var(--azul-neon);
+        }
+
+        .nav-menu a {
+            color: var(--texto-mutado);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .btn-volta:hover {
+            background-color: #725c05;
+        }
+        .btn-volta:active {
+            transform: scale(0.98);
+        }
+
+        .btn-volta {      /* Fixa o elemento na tela (não sai do lugar ao rolar) */
+            top: 90px;             /* Distância de 20px do topo */
+            right: 20px;           /* Distância de 20px da direita */
+            z-index: 1000;
+        }
+
+
+        .btn-volta { /* Mantém o botão fixo no canto mesmo ao rolar a página */
+            padding: 10px 20px;
+            background-color: #facc15;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         .btn-assistir:hover {
             background-color: var(--amarelo-hover);
         }
@@ -243,20 +311,24 @@
         <div class="logo">Cultão<span>TV</span></div>
         <div class="badge-live">AO VIVO</div>
 
-            <nav class="nav-container">
-                <a href="#" class="logo">🛡️ CyberSegurança na Web</a>
-                <ul class="nav-menu">
-                    <li><a href="cultotv2.html">Teste sua Senha</a></li>
-                    <li><a href="cultotv2.html">Quiz</a></li>
-                    <li><a href="cultotv2.html">Introdução</a></li>
-                    <li><a href="cultotv2.html">Definição</a></li>
-                    <li><a href="cultotv2.html">Engenharia Social</a></li>
-                    <li><a href="cultotv2.html">Phishing</a></li>
-                    <li><a href="cultotv2.html">Senhas Fortes</a></li>
-                    <li><a href="cultotv2.html">Redes Wi-Fi</a></li>
-                </ul>
-            </nav>
+        <nav class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="cultotv2.html" style="font-family: cursive;">Vôlei🏐</a></li>
+                <li><a href="cultotv2.html" style="font-family: cursive;">Handebol M🤾‍♂️</a></li>
+                <li><a href="cultotv2.html" style="font-family: cursive;">Futsal M⚽</a></li>
+                <li><a href="cultotv2.html" style="font-family: cursive;">Basquete M🏀</a></li>
+                <li><a href="cultotv2.html" style="font-family: cursive;">Basquete F🏀</a></li>
+                <li><a href="cultotv2.html" style="font-family: cursive;">Handebol F🤾‍♀️</a></li>
+                <li><a href="cultotv2.html" style="font-family: cursive;">Futsal F⚽</a></li>
+            </ul>
+        </nav> 
+        <a href="grafico.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()">
+            <p><strong style="font-family: cursive;">Todos os Jogos</strong></p>
+        </button></a>
     </header>
+    <br>
+    <br>
+    <br>
 
     <!-- Container do Conteúdo -->
     <main class="container">
@@ -290,7 +362,6 @@
                         <div class="texto-direita">3 x 2</div>
                     </div>
                     <p class="card-descricao">Melhores momentos do primeiro tempo da semifinal disputada sob alta intensidade.</p>
-                    <button class="btn-assistir">Trocar de Câmera</button>
                 </div>
             </div>
 
@@ -306,12 +377,12 @@
                         <div class="texto-direita">0 x 0</div>
                     </div>
                     <p class="card-descricao">Aquecimento oficial das equipes direto do ginásio poliesportivo.</p>
-                    <button class="btn-assistir">Trocar de Câmera</button>
                 </div>
             </div>
 
         </section>
     </main>
+    <br>
 
 </body>
 </html>
