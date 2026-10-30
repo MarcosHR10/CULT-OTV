@@ -319,24 +319,18 @@
                 <p>Este projeto descreve um detector de fumaça automatizado para escolas, desenvolvido com hardware e software programado em C++ no ambiente Arduino. O sistema monitora o ambiente pelo pino analógico A5 e controla um LED vermelho (pino 12), um LED verde (pino 11) e um buzzer (pino 10). No ciclo de execução, o microcontrolador lê continuamente os dados do sensor (escala de 0 a 1023) e os transmite ao Serial Monitor. Se os valores ultrapassarem o limite crítico de 800 unidades, indicando a presença de aerossóis, o LED vermelho e o alarme sonoro são ativados imediatamente; caso contrário, o circuito permanece em normalidade com o LED verde aceso. Para validação prática, o dispositivo foi instalado em uma maquete que simula a dispersão do vapor de cigarros eletrônicos em banheiros escolares, funcionando como um fiscalizador automático para apoiar a intervenção rápida da gestão pedagógica.</p>
                 <div class="bloco-dicas">
                     <h3>Arquitetura do Hardware e Coleta de Dados</h3>
-                    <ul>
-                        <li>Evite acessar contas bancárias ou realizar compras enquanto estiver nessas redes.</li>
-                        <li> Utilize uma VPN confiável para criptografar todo o tráfego do seu celular ou notebook.</li>
-                        <li> Desative a conexão automática de redes Wi-Fi conhecidas nas configurações do aparelho.</li>
-                    </ul>
-                </div>
-                <div class="bloco-dicas">
-                    <h3>Montaagem Física e Conexões do Circuito</h3>
                     <p>O sistema utiliza o sensor MQ-2 na porta A0 para coletar dados ambientais, aplicando um filtro de média móvel (10 leituras consecutivas a cada 5 ms) para reduzir ruídos. A interface de alerta conta com LEDs (verde, amarelo e vermelho) e um buzzer com frequências variáveis baseadas no nível de risco. Para a conectividade, o protótipo utiliza um módulo Bluetooth HC-06 configurado via emulação de serial por software.
                     </p>
                 </div>
                 <div class="bloco-dicas">
+                    <h3>Montaagem Física e Conexões do Circuito</h3>
+                    <p>A montagem do protótipo foi realizada em uma protoboard conectada ao Arduino Uno R3. A alimentação foi distribuída pelas trilhas de 5V e GND, permitindo a integração dos componentes. O sensor MQ-2 foi conectado ao pino analógico A0, enquanto o módulo Bluetooth HC-06 foi ligado aos pinos digitais 10 e 11. Os LEDs verde, amarelo e vermelho foram conectados aos pinos 3, 4 e 5, utilizando resistores de 220 Ω para limitar a corrente. Por fim, o buzzer foi conectado ao pino digital 8, completando o circuito de sinalização e alerta do protótipo.
+                    </p>
+                </div>
+                <div class="bloco-dicas">
                     <h3>Análise e Processamento de Dados</h3>
-                    <ul>
-                        <li>Evite acessar contas bancárias ou realizar compras enquanto estiver nessas redes.</li>
-                        <li> Utilize uma VPN confiável para criptografar todo o tráfego do seu celular ou notebook.</li>
-                        <li> Desative a conexão automática de redes Wi-Fi conhecidas nas configurações do aparelho.</li>
-                    </ul>
+                    <p>O sensor MQ-2 realiza a análise dos níveis de fumaça e gases em tempo real, classificando os resultados em três estados: normal, atenção e crítico. Com leituras abaixo de 500, o LED verde permanece aceso e o sistema envia o caractere '0' via Bluetooth. Entre 500 e 799, o LED amarelo é ativado, o buzzer emite alertas intermitentes de 500 Hz e o caractere '1' é transmitido. A partir de 800, o LED vermelho é acionado e o buzzer emite um alarme mais rápido, alternando entre 1000 Hz e 1500 Hz, mantendo o envio do caractere '1'. Para evitar transmissões repetitivas e otimizar a comunicação Bluetooth, o sistema envia os dados somente quando ocorre uma mudança de estado.
+                    </p>
                 </div>
 
             </article>
@@ -345,10 +339,15 @@
             <br>
 
             <!-- Wi-Fi Público -->
-            <article class="card" id="wifi">
-                <span class="card-tag">Redes de Risco</span>
-                <h2>Riscos em Wi-Fi Aberto</h2>
-                <p>Acessar redes Wi-Fi públicas de cafeterias, aeroportos ou praças sem senha traz grandes perigos. Como os dados trafegam pelo ar de forma aberta, criminosos conectados à mesma rede podem interceptar sua navegação. Ataques do tipo Man-in-the-Middle (Homem no Meio) permitem que o invasor fique entre o seu dispositivo e a internet, lendo o tráfego de sites não criptografados ou redirecionando você para servidores maliciosos.</p>
+            <article class="card" id="wifi">
+                <h2>Resultados</h2>
+                O desenvolvimento do Monitor de Fumaça integrou conhecimentos de eletrônica, sensores, programação, comunicação sem fio e desenvolvimento Android. A substituição do Arduino e HC-06 pelo ESP32 com Wi-Fi aprimorou a comunicação entre o hardware e o aplicativo, ampliando as possibilidades de monitoramento em rede local.</p>
+</article>
+
+<article class="card" id="wifi">
+                <h2>Considerações Finais</h2>
+                <p>O projeto evidencia que desenvolver um sistema integrado não consiste apenas em escrever um programa. É necessário compreender o papel de cada componente, definir formatos de comunicação, testar cada etapa separadamente e verificar se todas as partes trabalham de maneira consistente. O protótipo não deve substituir detectores certificados nem ser utilizado como único mecanismo de segurança em ambientes reais. Uma aplicação destinada à proteção de pessoas exigiria validação técnica, calibração apropriada, testes de confiabilidade e análise das normas de segurança aplicáveis.</p>
+</article>
                 <div class="bloco-dicas">
                     <h3>Boas práticas:</h3>
                     <ul>
