@@ -64,17 +64,6 @@
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-        footer {
-            background-color: var(--azul-card);
-            border: 1px solid var(--amarelo); /* Linha amarela de assinatura */
-            border-bottom: 1px solid var(--amarelo);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            border-radius: 8px;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
 
         .logo {
             font-size: 24px;
@@ -110,9 +99,25 @@
 
         /* Player em Destaque (Esquerda) */
         .player-principal {
+            background-color: var(--azul-card);
+            border: 1px; /* Linha amarela de assinatura */
+            padding: 15px 30px;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: space-between;
+            border-radius: 8px;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .player-principal:hover {
+            background-color: var(--azul-card);
+            border: 1px solid var(--amarelo); /* Linha amarela de assinatura */
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 8px;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .video-container {
@@ -231,6 +236,7 @@
         .nav-menu {
             display: flex;
             list-style: none;
+            align-items: center;
             gap: 20px;
         }
 
@@ -294,7 +300,7 @@
             background-color: #facc15;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
         }
         .btn-assistir:hover {
@@ -320,8 +326,8 @@
     <!-- Header / Topo -->
     <header>
         <div class="logo" style="font-size: 36px;">Cultão<span>TV</span></div>
-        <a href="grafico.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()">
-            <p><strong style="font-family: cursive; font-size: 16px;">Todos os Jogos</strong></p>
+        <a href="modalidades.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()">
+            <p><strong style="font-family: cursive; font-size: 16px;">Voltar</strong></p>
         </button></a>
     </header>
     <br>
@@ -329,73 +335,34 @@
     <br>
 
     <!-- Container do Conteúdo -->
-    <main class="container">
+    
         
-        <!-- Lado Esquerdo: Player Principal -->
-        <section class="player-principal">
-            <div class="video-container">
-                <!-- Substitua o ID '6v61YQ9pMhI' pelo ID do vídeo desejado -->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/52CnBqaSLYw?si=8pN69NASiuHL4CAN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            
-            <div class="player-info">
-                <h1>Transmissão Principal: Interclasse</h1>
-                <p>Assista aos melhores confrontos ao vivo com qualidade digital. O painel monitora os lances cruciais da partida em tempo real utilizando os contrastes cromáticos de nossa interface adaptiva.</p>
-            </div>
-        </section>
+        <center><h1 style="font-size: 46px;">Interclasses de 2026</h1></center>
+        <br>
+        <br>
+        <!-- Jogos -->
+        <center><a href="Finais futsalM/fases.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()" style="height: 55px; width: 300px;">
+            <center><p><strong style="font-family: cursive; font-size: 26px;">Fase de Grupos</strong></p></center>
+        </button></a></center>
+        <br>
+        <!-- Fotos -->
+        <center><a href="Finais futsalM/quartas.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()" style="height: 55px; width: 300px;">
+            <center><p><strong style="font-family: cursive; font-size: 26px;">Quartas</strong></p></center>
+        </button></a></center>
+        <br>
+        <!-- Entrevistas -->
+        <center><a href="Finais futsalM/semifinais.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()" style="height: 55px; width: 300px;">
+            <center><p><strong style="font-family: cursive; font-size: 26px;">Semifinais</strong></p></center>
+        </button></a></center>
+        <br>
+        <!-- Vencedores -->
+        <center><a href="Finais futsalM/finais.html" style="margin: 20px;"><button class="btn-volta" onclick="history.back()" style="height: 55px; width: 300px;">
+            <center><p><strong style="font-family: cursive; font-size: 26px;">Final</strong></p></center>
+        </button></a></center>
+        <br>
 
-        <!-- Lado Direito: Cards de Vídeos Relacionados -->
-        <section class="playlist-lateral">
-            <div class="playlist-titulo">Próximos Jogos</div>
 
-            <!-- CARD 1 -->
-            <div class="card-video">
-                <div class="card-thumb">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/TDVlDUAIz5k?si=jHm5fJBwYYUNyttZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-                <div class="card-body">
-                    <div class="card-header-flex">
-                        <div class="card-titulo">Sorocaba vs Carlos Barbosa</div>
-                        <!-- Texto alinhado à direita dentro do card usando Flexbox -->
-                        <div class="texto-direita">3 x 2</div>
-                    </div>
-                    <p class="card-descricao">Melhores momentos do primeiro tempo da semifinal disputada sob alta intensidade.</p>
-                </div>
-            </div>
-
-            <!-- CARD 2 -->
-            <div class="card-video">
-                <div class="card-thumb">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/SETK2maosQY?si=p3eLyOvEEygNEiRJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-                <div class="card-body">
-                    <div class="card-header-flex">
-                        <div class="card-titulo">Joinville vs Corinthians</div>
-                        <!-- Texto alinhado à direita dentro do card usando Flexbox -->
-                        <div class="texto-direita">0 x 0</div>
-                    </div>
-                    <p class="card-descricao">Aquecimento oficial das equipes direto do ginásio poliesportivo.</p>
-                </div>
-            </div>
-
-        </section>
-    </main>
-    <br>
-    <footer>
-      
-        <nav class="nav-container">
-            <ul class="nav-menu">
-                <center><li><a href="cultotv2.html" style="font-size: 48px;">🏐</a></li></center>
-                <center><li><a href="cultotv2.html" style="font-size: 48px;">⚽</a></li></center>
-                <center><li><a href="cultotv2.html" style="font-size: 48px;">🤾‍♂️</a></li></center>
-                <center><li><a href="cultotv2.html" style="font-size: 48px;">🏀</a></li></center>
-                <center><li><a href="cultotv2.html" style="font-size: 48px;">🤾</a></li></center>
-                <center><li><a href="cultotv2.html" style="font-size: 48px;">♟️</a></li></center>
-            </ul>
-        </nav> 
-  
-    </footer>
+    
 
 </body>
 </html>
-
