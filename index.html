@@ -1,0 +1,778 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="darkside.png">
+
+    <title>CultãoTV | Interclasses 2026</title>
+
+    <style>
+
+        /* CONFIGURAÇÕES GERAIS */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #07152b;
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* IMAGEM DE FUNDO */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+
+            background-image:url("backgroun.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .background::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background: rgba(2, 10, 25, 0.35);
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            height: 95px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: rgba(5, 18, 40, 0.78);
+
+            border-bottom: 2px solid #f5c51b;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .logo span {
+            color: #f5c51b;
+        }
+
+        .brasao {
+            width: 65px;
+            height: 65px;
+            border: 2px solid #f5c51b;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: #f5c51b;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .brasao img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+
+        .container {
+            min-height: calc(100vh - 95px);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            padding: 50px 8%;
+            gap: 70px;
+        }
+
+        /* MENU */
+
+        .menu {
+            width: 420px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+
+            transform: skew(-8deg);
+        }
+
+        .menu button {
+
+            height: 95px;
+            width: 100%;
+
+            border: 3px solid rgba(255,255,255,0.35);
+
+            background: rgba(8, 25, 48, 0.42);
+
+            backdrop-filter: blur(8px);
+
+            color: white;
+
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.2),
+                inset 0 0 20px rgba(255,255,255,0.03);
+        }
+
+        .menu button:hover {
+
+            transform: translateX(12px);
+
+            border-color: #f5c51b;
+
+            background: rgba(10, 35, 65, 0.75);
+        }
+
+        .menu button.active {
+
+            border-color: #f5c51b;
+
+            background: rgba(13, 37, 66, 0.72);
+
+            box-shadow:
+                0 0 18px rgba(245,197,27,0.2),
+                inset 0 0 20px rgba(245,197,27,0.08);
+        }
+
+        /* PAINEL DE INFORMAÇÕES */
+
+        .information {
+
+            width: 430px;
+            max-width: 100%;
+
+        }
+
+        .information h1 {
+
+            font-size: 65px;
+            font-weight: 900;
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+
+            text-shadow: 3px 3px 8px black;
+
+        }
+
+        .information p {
+
+            color: #c3cbd7;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            line-height: 1.7;
+
+            text-transform: uppercase;
+
+            margin-bottom: 35px;
+
+        }
+
+/* BOTÃO CONTINUE */
+
+.continue {
+    width: 230px;
+    height: 75px;
+
+    background: #e5e600;
+    color: #07152b;
+
+    border: 2px solid #e5e600;
+    border-radius: 0;
+
+    font-family: Impact, "Arial Narrow", sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+
+.continue:hover {
+    background: #07152b;
+    color: white;
+
+    border-color: #e5e600;
+
+    box-shadow:
+        0 0 8px #e5e600,
+        0 0 18px rgba(229, 230, 0, 0.5);
+
+    transform: scale(1.04);
+}
+
+/* EFEITO AO CLICAR */
+
+.continue:active {
+    transform: scale(0.97);
+}
+
+
+        /* PÁGINAS INTERNAS */
+
+        .page {
+
+            display: none;
+
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 60px 30px;
+
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page h1 {
+
+            font-size: 65px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 20px;
+
+        }
+
+        .page p {
+
+            color: #c3cbd7;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+        }
+
+        .content {
+
+            margin-top: 35px;
+
+            padding: 30px;
+
+            background: rgba(5, 18, 40, 0.65);
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+        .content h2 {
+
+            color: #f5c51b;
+
+            margin-bottom: 20px;
+
+            text-transform: uppercase;
+
+        }
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+
+            gap: 20px;
+
+        }
+
+        .card {
+
+            min-height: 120px;
+
+            padding: 20px;
+
+            background: rgba(255,255,255,0.06);
+
+            border: 1px solid rgba(245,197,27,0.4);
+
+            transition: 0.3s;
+
+        }
+
+        .card:hover {
+
+            background: rgba(245,197,27,0.12);
+
+            transform: translateY(-5px);
+
+        }
+
+        .card h3 {
+
+            color: #f5c51b;
+
+            margin-bottom: 10px;
+
+        }
+
+        .card p {
+
+            font-size: 13px;
+
+        }
+
+        /* BOTÃO VOLTAR */
+
+
+/* BOTÃO VOLTAR AO MENU */
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 35px;
+    padding: 12px 20px;
+
+    background: #f5c51b;
+    border: 2px solid #f5c51b;
+
+    color: #07152b;
+
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* MOUSE SOBRE O BOTÃO */
+
+.back:hover {
+    background: #07152b;
+    color: white;
+    border-color: #f5c51b;
+
+    transform: translateY(-3px);
+    box-shadow: 0 0 12px rgba(245, 197, 27, 0.35);
+}
+
+/* CLIQUE */
+
+.back:active {
+    transform: scale(0.97);
+}
+
+
+
+        /* RODAPÉ */
+
+        footer {
+
+            position: fixed;
+
+            bottom: 12px;
+            right: 20px;
+
+            color: rgba(255,255,255,0.4);
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+        }
+
+        /* RESPONSIVIDADE */
+
+        @media (max-width: 850px) {
+
+            .container {
+
+                flex-direction: column;
+
+                justify-content: center;
+
+                gap: 45px;
+
+                padding: 40px 25px;
+
+            }
+
+            .menu {
+
+                width: min(100%, 420px);
+
+            }
+
+            .menu button {
+
+                height: 75px;
+                font-size: 27px;
+
+            }
+
+            .information {
+
+                text-align: center;
+
+            }
+
+            .information h1 {
+
+                font-size: 45px;
+
+            }
+
+            .continue {
+
+                margin: auto;
+
+            }
+
+            footer {
+
+                position: relative;
+
+                text-align: center;
+
+                padding: 15px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <!-- CABEÇALHO -->
+
+    <header>
+
+        <div class="logo">
+            Cultão<span>TV</span>
+        </div>
+
+        <div class="brasao">
+            <img src="darkside.png"
+                 alt="Brasão do Culto à Ciência"
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='CULTO À<br>CIÊNCIA<br>CAMPINAS';">
+        </div>
+
+    </header>
+
+
+    <!-- MENU PRINCIPAL -->
+
+    <main id="home" class="container">
+
+        <nav class="menu">
+
+            <button class="active"
+                onclick="selectOption(this, 'Jogos',
+                'Reviva cada partida do Interclasses 2026. Confira os confrontos, modalidades e momentos que marcaram a competição.',
+                'jogos')">
+
+                <link href="https://fonts.googleapis.com/css?family=Black+Ops+One:regular" rel="stylesheet" />Jogos 
+
+            <style>
+            h1 {
+                font-family: 'Black Ops One', sans-serif;  
+            } 
+
+            </style>   
+
+            </button>
+
+            <button
+                onclick="selectOption(this, 'Fotos',
+                'Confira os registros da torcida, das equipes e dos melhores momentos do Interclasses.',
+                'fotos')">
+
+                Fotos
+
+            </button>
+
+            <button
+                onclick="selectOption(this, 'Entrevistas',
+                'Conheça as histórias dos atletas, narradores, estudantes e participantes do Interclasses.',
+                'entrevistas')">
+
+                Entrevistas
+
+            </button>
+
+            <button
+                onclick="selectOption(this, 'Vencedores',
+                'Conheça os campeões e os destaques de cada modalidade do Interclasses 2026.',
+                'vencedores')">
+
+                Vencedores
+
+            </button>
+
+        </nav>
+
+
+        <!-- INFORMAÇÕES -->
+
+        <section class="information">
+
+            <h1 id="title">
+                Jogos
+            </h1>
+
+            <p id="description">
+
+                Reviva cada partida do Interclasses 2026.
+                Confira os confrontos, modalidades e
+                momentos que marcaram a competição.
+
+            </p>
+
+            <link href="https://fonts.googleapis.com/css?family=Black+Ops+One:regular" rel="stylesheet" /><button class="continue" onclick="continuePage()"> 
+                Continue
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- PÁGINAS INTERNAS -->
+
+    <main id="internal-page" class="page">
+
+        <div class="eyebrow" style="color:#f5c51b; letter-spacing:3px;">
+            CULTÃO TV // INTERCLASSES 2026
+        </div>
+
+        <h1 id="internal-title">
+            Jogos
+        </h1>
+
+        <p id="internal-description">
+            Explore o acervo do Interclasses.
+        </p>
+
+        <section class="content">
+
+            <h2 id="content-heading">
+                Explore o acervo
+            </h2>
+
+            <div class="cards" id="cards">
+
+            </div>
+
+        </section>
+
+        <button class="back" onclick="goHome()">
+            ← VOLTAR AO MENU PRINCIPAL
+        </button>
+
+    </main>
+
+
+    <footer>
+        CULTÃO TV // INTERCLASSES 2026
+    </footer>
+
+
+    <script>
+
+        let selectedPage = "jogos";
+
+        // SELEÇÃO DO MENU
+
+        function selectOption(button, title, description, page) {
+
+            document.querySelectorAll(".menu button")
+                .forEach(item => {
+                    item.classList.remove("active");
+                });
+
+            button.classList.add("active");
+
+            document.getElementById("title").textContent = title;
+
+            document.getElementById("description").textContent =
+                description;
+
+            selectedPage = page;
+
+        }
+
+
+        // CONTEÚDO DAS ÁREAS
+
+        const sections = {
+
+            jogos: {
+
+                title: "Jogos",
+
+                description: "O arquivo das partidas do Interclasses 2026.",
+
+                cards: [
+                    "Handebol Feminino",
+                    "Handebol Masculino",
+                    "Futsal Feminino",
+                    "Futsal Masculino",
+                    "Basquete Feminino",
+                    "Basquete Masculino",
+                    "Vôlei"
+                ]
+
+            },
+
+            fotos: {
+
+                title: "Fotos",
+
+                description: "Os registros do Interclasses 2026.",
+
+                cards: [
+                    "A Torcida",
+                    "As Equipes",
+                    "Lances",
+                    "Bastidores"
+                ]
+
+            },
+
+            entrevistas: {
+
+                title: "Entrevistas",
+
+                description: "As histórias de quem participou do Interclasses.",
+
+                cards: [
+                    "Atletas",
+                    "Narradores",
+                    "Organização",
+                    "Professores"
+                ]
+
+            },
+
+            vencedores: {
+
+                title: "Vencedores",
+
+                description: "Os campeões do Interclasses 2026.",
+
+                cards: [
+                    "Campeões",
+                    "Destaques",
+                    "Premiações"
+                ]
+
+            }
+
+        };
+
+
+        // ABRIR ÁREA SELECIONADA
+
+        function continuePage() {
+
+            const data = sections[selectedPage];
+
+            document.getElementById("home").style.display = "none";
+
+            document.getElementById("internal-page")
+                .classList.add("active");
+
+            document.getElementById("internal-title").textContent =
+                data.title;
+
+            document.getElementById("internal-description").textContent =
+                data.description;
+
+            document.getElementById("content-heading").textContent =
+                data.title + " // 2026";
+
+            const cards = document.getElementById("cards");
+
+            cards.innerHTML = "";
+
+            data.cards.forEach(name => {
+
+                const card = document.createElement("article");
+
+                card.className = "card";
+
+                card.innerHTML = `
+                    <h3>${name}</h3>
+                    <p>Conteúdo desta categoria será adicionado ao acervo.</p>
+                `;
+
+                cards.appendChild(card);
+
+            });
+
+        }
+
+
+        // VOLTAR AO MENU
+
+        function goHome() {
+
+            document.getElementById("internal-page")
+                .classList.remove("active");
+
+            document.getElementById("home").style.display = "flex";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
